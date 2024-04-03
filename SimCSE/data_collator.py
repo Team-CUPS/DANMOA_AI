@@ -1,3 +1,4 @@
+#SimCSE(fine-tuning)을 위한 데이터 콜렉터
 from dataclasses import dataclass, field
 from typing import Optional, Union, List, Dict, Tuple
 

@@ -1,3 +1,4 @@
+# 전처리 (집에서보기)
 import sys
 import os
 import pandas as pd

@@ -1,3 +1,4 @@
+#전처리 필요 함수 정의
 from info import UnsupervisedSimCseFeatures, STSDatasetFeatures
 
 #비감독전처리함수

@@ -1,3 +1,4 @@
+# make_dataset으로 가기 전 특수문자, 점을 모두 같은 타입으로 만들어주는 전처리작업
 import sys
 import os
 
