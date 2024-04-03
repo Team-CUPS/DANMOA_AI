@@ -1,4 +1,4 @@
-# 자소서 데이터 크롤링 코드
+# 링커리어 자소서 데이터 크롤링 코드
 import requests
 import json
 import urllib.parse
