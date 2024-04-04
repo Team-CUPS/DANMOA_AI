@@ -23,7 +23,7 @@ for edge in data['data']['coverLetters']['edges']:
         # '.'을 기준으로 문장을 나누고, 빈 문장을 제외한 문장 중 특수문자를 필터링해서 추가
         sentences.extend([re.sub("[^0-9가-힣a-zA-Z一-龥.,)(\"'-·:}{》《~/%\[\]’‘“”=〉〈><_ ]", '', sentence.strip()) for sentence in re.split(pattern, line) if sentence.strip() != ''])
 # 리스트를 DataFrame으로 변환
-df = pd.DataFrame(sentences, columns=['Sentence'])
+df = pd.DataFrame(sentences, columns=['sentence'])
 
 # DataFrame을 CSV 파일로 저장
 csv_file_path = 'linkareer.csv'

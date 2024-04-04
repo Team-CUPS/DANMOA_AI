@@ -33,7 +33,7 @@ for item in data:
             sentences.extend([re.sub(pattern, '', sentence.strip()) for sentence in re.split(pattern, line) if sentence.strip() != ''])
 
 # 리스트를 DataFrame으로 변환
-df = pd.DataFrame(sentences)
+df = pd.DataFrame(sentences, columns=['sentence'])
 # DataFrame을 CSV 파일로 저장
 csv_file_path = 'wanted.csv'
 df.to_csv(csv_file_path, index=False, encoding='utf-8-sig')

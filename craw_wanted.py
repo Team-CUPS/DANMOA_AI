@@ -93,8 +93,6 @@ for offset in range(0, total_data_count, limit):
             all_data.append(crawled_data)
             id_set.add(crawled_data['ID'])
 
-            print(json.dumps(crawled_data, indent=4, ensure_ascii=False))
-
     else:
         print("No data returned or empty data.")
         has_data = False  # 데이터가 없음을 표시
