@@ -21,7 +21,7 @@ model_name = f"{base}{name}"
 train_batch_size = 8
 step_num = 100
 OMP_NUM_THREADS = 8
-output_dir = "output/simcse-robertLarge"
+output_dir = "output/simcse-robertsmall"
 
 def main():
     # 데이터 인자와 훈련 인자를 초기화합니다.
@@ -45,13 +45,13 @@ def main():
         learning_rate=7e-5,
         do_train=True,
         save_total_limit=3,
-        do_eval= True,
-        deepspeed=False,
+        do_eval= False,
+        deepspeed=False, 
         logging_steps=step_num,
         save_steps=step_num,
-        evaluation_strategy="steps",
+        evaluation_strategy="no",#eval없을시 no
         eval_steps=step_num,
-        load_best_model_at_end=True,
+        load_best_model_at_end=False, #eval없을시 false
         label_names=["labels"],
         num_train_epochs=5
     )
@@ -84,20 +84,20 @@ def main():
     )
 
     # 평가 데이터셋 로드
-    eval_dataset = load_from_disk("data/datasets/dev")
+    #eval_dataset = load_from_disk("data/datasets/dev")
 
     trainer = CLTrainer(
         model=model,
         args=training_args,
         train_dataset=combined_dataset,
-        eval_dataset=eval_dataset,
+        #eval_dataset=eval_dataset,
         data_collator=data_collator,
     )
 
     trainer.train()
     # 평가 수행 및 결과 출력
-    eval_results = trainer.evaluate(eval_dataset)
-    logger.info(f"Final Evaluation Results: {eval_results}")
+    #eval_results = trainer.evaluate(eval_dataset)
+    #logger.info(f"Final Evaluation Results: {eval_results}")
 
     model.save_pretrained(f"{output_dir}/best_model")
     tokenizer.save_pretrained(f"{output_dir}/best_model")
