@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 # 변수 설정
 base = "klue/"
-name = "roberta-small"
+name = "roberta-large"
 model_name = f"{base}{name}"
 train_batch_size = 8
 step_num = 100
@@ -35,7 +35,7 @@ def main():
 
 
     # GPU 사용 여부 확인
-    device = torch.device( "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
     training_args = OurTrainingArguments(
@@ -44,13 +44,13 @@ def main():
         per_device_eval_batch_size=train_batch_size,
         learning_rate=7e-5,
         do_train=True,
-        save_total_limit=3,
+        save_total_limit=1,
         do_eval= False,
         deepspeed=False, 
         logging_steps=step_num,
         save_steps=step_num,
         evaluation_strategy="no",#eval없을시 no
-        eval_steps=step_num,
+        #eval_steps=step_num,  #eval없을시 주석처리
         load_best_model_at_end=False, #eval없을시 false
         label_names=["labels"],
         num_train_epochs=5
@@ -99,8 +99,8 @@ def main():
     #eval_results = trainer.evaluate(eval_dataset)
     #logger.info(f"Final Evaluation Results: {eval_results}")
 
-    model.save_pretrained(f"{output_dir}/best_model")
-    tokenizer.save_pretrained(f"{output_dir}/best_model")
+    model.save_pretrained(f"{output_dir}/unsupervise_roberta-large")
+    tokenizer.save_pretrained(f"{output_dir}/unsupervise_roberta-large")
 
 if __name__ == "__main__":
     main()
