@@ -167,8 +167,8 @@ def main(model_name_or_path, train_file, dev_file, test_file, save_dir):
 
 if __name__ == "__main__":
     model_name_or_path = "klue/roberta-base"
-    train_file = "data/train/job_train.csv"
-    dev_file = "dev.csv"  # 파일이 없으면 None으로 설정
+    train_file = "linkareer.csv"
+    dev_file = None  # 파일이 없으면 None으로 설정
     test_file = None  # 파일이 없으면 None으로 설정
     save_dir = "data/datasets"
 
