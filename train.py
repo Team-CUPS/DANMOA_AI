@@ -21,7 +21,7 @@ model_name = f"{base}{name}"
 train_batch_size = 8
 step_num = 100
 OMP_NUM_THREADS = 8
-output_dir = "output/simcse-robertsmall"
+output_dir = "output/simcse"
 
 def main():
     # 데이터 인자와 훈련 인자를 초기화합니다.
@@ -41,14 +41,14 @@ def main():
     training_args = OurTrainingArguments(
         output_dir=output_dir,
         per_device_train_batch_size=train_batch_size,
-        per_device_eval_batch_size=train_batch_size,
+        #per_device_eval_batch_size=train_batch_size,
         learning_rate=7e-5,
         do_train=True,
-        save_total_limit=1,
+        #save_total_limit=1,
         do_eval= False,
         deepspeed=False, 
         logging_steps=step_num,
-        save_steps=step_num,
+        #save_steps=step_num,
         evaluation_strategy="no",#eval없을시 no
         #eval_steps=step_num,  #eval없을시 주석처리
         load_best_model_at_end=False, #eval없을시 false
@@ -71,8 +71,8 @@ def main():
     model.resize_token_embeddings(len(tokenizer))
 
     # 두 데이터셋을 합칩니다.
-    dataset1 = load_from_disk("data/datasets/train")
-    dataset2 = load_from_disk("data/datasets1/train")
+    dataset1 = load_from_disk("data/linkareer/train")
+    dataset2 = load_from_disk("data/wanted/train")
     combined_dataset = concatenate_datasets([dataset1, dataset2])
 
     data_collator = (
