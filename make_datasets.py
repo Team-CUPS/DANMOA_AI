@@ -1,4 +1,3 @@
-# 전처리 (집에서보기)
 import sys
 import os
 import pandas as pd
@@ -166,11 +165,11 @@ def main(model_name_or_path, train_file, dev_file, test_file, save_dir):
 
 
 if __name__ == "__main__":
-    model_name_or_path = "klue/roberta-base"
-    train_file = "wanted.csv"
-    dev_file = None  # 파일이 없으면 None으로 설정
+    model_name_or_path = "kazma1/unsupervise_bert_base" #kazma1/unsupervise_bert_base,kazma1/unsuperivse_roberta_large,kazma1/unsupervise_roberta_base,kazma1/unsupervise_roberta_small
+    train_file = "sts_train.csv"
+    dev_file = "eval.csv"  # 파일이 없으면 None으로 설정
     test_file = None  # 파일이 없으면 None으로 설정
-    save_dir = "data/wanted"
+    save_dir = "data/dataset/sts"
 
     main(model_name_or_path, train_file, dev_file, test_file, save_dir)
     print("Dataset processing completed successfully.")

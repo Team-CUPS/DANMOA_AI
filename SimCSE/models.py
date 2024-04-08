@@ -422,6 +422,7 @@ class RobertaForCL(RobertaPreTrainedModel):
                 output_hidden_states=output_hidden_states,
                 return_dict=return_dict,
             )
+        
         else:
             return cl_forward(
                 self,
@@ -439,3 +440,4 @@ class RobertaForCL(RobertaPreTrainedModel):
                 mlm_input_ids=mlm_input_ids,
                 mlm_labels=mlm_labels,
             )
+        return cos_sim, loss

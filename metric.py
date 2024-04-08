@@ -3,15 +3,26 @@ from datasets import load_metric
 from SimCSE.trainers import EvalPrediction
 from SimCSE.arguments import TrainingArguments
 import numpy as np
+import logging
+import sys
+
+
+
+
+logger = logging.getLogger(__name__)
 
 pearsonr = load_metric("pearsonr").compute
 spearmanr = load_metric("spearmanr").compute
 
 
 def compute_metrics(pred: EvalPrediction, model):
-
     references = pred.label_ids  # [samples, ]
     predictions = pred.predictions  # [samples, batch_size]
+    
+    print("Model predictions:", predictions)
+    print("References:", references)
+    print("Model predictions:", predictions, file=sys.stderr)
+    print("References:", references, file=sys.stderr)
 
     ########################################################
     # shape change to diag
@@ -27,9 +38,7 @@ def compute_metrics(pred: EvalPrediction, model):
     #########################################################
 
     pearson_corr = pearsonr(predictions=predictions, references=references)["pearsonr"]
-    spearman_corr = spearmanr(predictions=predictions, references=references)[
-        "spearmanr"
-    ]
+    spearman_corr = spearmanr(predictions=predictions, references=references)["spearmanr"]
     return {
         "pearson": pearson_corr,
         "spearman": spearman_corr,

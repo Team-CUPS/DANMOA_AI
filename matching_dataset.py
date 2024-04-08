@@ -166,7 +166,7 @@ def main(model_name_or_path, train_file, dev_file, test_file, save_dir):
 
 if __name__ == "__main__":
     model_name_or_path = "output/simcse-roberta/best_model"
-    train_file = "data/train/dev.csv"
+    train_file = "sts_train"
     dev_file = "data/dev/dev.csv"  # 파일이 없으면 None으로 설정
     test_file = None  # 파일이 없으면 None으로 설정
     save_dir = "data/matchingdataset"

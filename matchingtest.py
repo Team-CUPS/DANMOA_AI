@@ -25,7 +25,7 @@ def create_eval_dataset(model_path, dataset_path):
 
     eval_examples = []
 
-    dataset = pd.read_csv(dataset_path, delimiter="\t")
+    dataset = pd.read_csv(dataset_path, delimiter=",")
 
     for _, row in tqdm(dataset.iterrows(), total=len(dataset)):
         text1 = row["sentence1"]
@@ -41,7 +41,7 @@ def create_eval_dataset(model_path, dataset_path):
 
 def main():
     model_path = "kazma1/simcse-robertsmall-matching"  # 여기에 모델 경로를 지정하세요.
-    dataset_path = "data/dev/sts_dev.csv"  # 여기에 dev.csv 파일의 경로를 지정하세요.
+    dataset_path = "dev.csv"  # 여기에 dev.csv 파일의 경로를 지정하세요.
 
     eval_dataset = create_eval_dataset(model_path, dataset_path)
 
