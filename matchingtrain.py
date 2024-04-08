@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 # 변수 설정
 base = "kazma1/"  #kazma1/unsupervise_bert_base,kazma1/unsuperivse_roberta_large,kazma1/unsupervise_roberta_base,kazma1/unsupervise_roberta_small
-name = "unsupervise_bert_base"
+name = "simcse-robertsmall-matching"
 model_name = f"{base}{name}"
 train_batch_size = 16
 step_num = 100
