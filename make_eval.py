@@ -1,4 +1,4 @@
-#unsupervise 매칭모델로 자동 데이터셋생성
+#unsupervise 매칭모델로 자동 데이터셋생성 bootstrap
 import pandas as pd
 import torch
 from transformers import AutoModel, AutoTokenizer

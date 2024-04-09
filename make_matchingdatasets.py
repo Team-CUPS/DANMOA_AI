@@ -10,7 +10,7 @@ from SimCSE.arguments import DataTrainingArguments
 
 def sts_prepare_features(examples, tokenizer, data_args):
     # 점수(scores)를 개별적으로 처리
-    scores = [(score/5) if score is not None else 0 for score in examples[STSDatasetFeatures.SCORE.value]]
+    scores = [round((score/5),1) if score is not None else 0 for score in examples[STSDatasetFeatures.SCORE.value]]
     
     tokenized_inputs = tokenizer(
         examples[STSDatasetFeatures.SENTENCE1.value],
