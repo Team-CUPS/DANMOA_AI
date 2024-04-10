@@ -3,9 +3,9 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 
 # Use the application default credentials
-cred = credentials.Certificate('mykey')
+cred = credentials.Certificate('danmoa-p5plsh-firebase-adminsdk-kyjdv-7d89ae5674.json')
 firebase_admin.initialize_app(cred, {
-  'projectId': 'danmoa-test',
+  'projectId': 'danmoa-p5plsh',
 })
 
 db = firestore.client()
