@@ -65,9 +65,9 @@ def main(model_name_or_path, dev_file, save_dir):
     print("Processed dataset saved to:", data_args.save_dir)
 
 if __name__ == "__main__":
-    model_name_or_path = "kazma1/unsupervise_bert_base"  #kazma1/unsupervise_bert_base,kazma1/unsuperivse_roberta_large,kazma1/unsupervise_roberta_base,kazma1/unsupervise_roberta_small
-    dev_file = "eval.csv"  # 실제 dev 파일 경로로 수정 필요
-    save_dir = "data/sts/eval"
+    model_name_or_path = "kazma1/simcse-robertsmall-matching"  #kazma1/unsupervise_bert_base,kazma1/unsuperivse_roberta_large,kazma1/unsupervise_roberta_base,kazma1/unsupervise_roberta_small
+    dev_file = "bootstrap_train.csv"  # 실제 dev 파일 경로로 수정 필요
+    save_dir = "data/sts/bootstrap"
 
     main(model_name_or_path, dev_file, save_dir)
     print("Dataset processing completed successfully.")

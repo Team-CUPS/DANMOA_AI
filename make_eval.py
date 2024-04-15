@@ -34,11 +34,11 @@ def create_eval_dataset(model_path, dataset_path):
 
 def main():
     model_path = "kazma1/simcse-robertsmall-matching"  # 여기에 모델 경로를 지정하세요.
-    dataset_path = "eval.csv"  # 여기에 eval.csv 파일의 경로를 지정하세요.
+    dataset_path = "bootstrap_train.csv"  # 여기에 eval.csv 파일의 경로를 지정하세요.
 
     eval_dataset = create_eval_dataset(model_path, dataset_path)
 
-    eval_dataset.to_csv("matchingresult-robertaLarge.csv", index=False)
+    eval_dataset.to_csv("bootstrap_train.csv", index=False)
     print(f"Eval dataset saved to matchingresult.csv")
 
 if __name__ == "__main__":

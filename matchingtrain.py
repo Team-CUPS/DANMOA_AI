@@ -20,9 +20,9 @@ base = "kazma1/"  #kazma1/unsupervise_bert_base,kazma1/unsuperivse_roberta_large
 name = "simcse-robertsmall-matching"
 model_name = f"{base}{name}"
 train_batch_size = 16
-step_num = 100
+step_num = 1000
 OMP_NUM_THREADS = 8
-output_dir = "output/simcse-bert-matching"
+output_dir = "output/simcse-robertsmall-bootstrap"
 
 def main():
     # 데이터 인자와 훈련 인자를 초기화합니다.
@@ -73,7 +73,7 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model.resize_token_embeddings(len(tokenizer))
 
-    train_dataset = load_from_disk(("data/sts/eval/dev"))
+    train_dataset = load_from_disk(("data/sts/bootstrap/dev"))
 
     data_collator = (
         default_data_collator

@@ -165,11 +165,11 @@ def main(model_name_or_path, train_file, dev_file, test_file, save_dir):
 
 
 if __name__ == "__main__":
-    model_name_or_path = "output/simcse-roberta/best_model"
-    train_file = "sts_train"
-    dev_file = "data/dev/dev.csv"  # 파일이 없으면 None으로 설정
+    model_name_or_path = "kazma1/simcse-robertsmall-matching"
+    train_file = None
+    dev_file = "bootstrap_train.csv"  # 파일이 없으면 None으로 설정
     test_file = None  # 파일이 없으면 None으로 설정
-    save_dir = "data/matchingdataset"
+    save_dir = "data/bootstrap"
 
     main(model_name_or_path, train_file, dev_file, test_file, save_dir)
     print("Dataset processing completed successfully.")
