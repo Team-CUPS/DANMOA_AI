@@ -72,6 +72,9 @@ def update_signal_and_score():
 update_signal_and_score()
 """
 
+
+"""
+#초기버전
 import time
 import firebase_admin
 from firebase_admin import firestore, credentials
@@ -145,3 +148,86 @@ def update_signal_and_score():
 # Function call
 update_signal_and_score()
 
+"""
+import time
+import firebase_admin
+from firebase_admin import firestore, credentials
+from transformers import AutoModel, AutoTokenizer
+import torch
+from nltk.tokenize import sent_tokenize
+import logging
+
+# Initialize logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Initialize Firebase and Firestore
+cred = credentials.Certificate('danmoa-p5plsh-firebase-adminsdk-kyjdv-7d89ae5674.json')
+firebase_admin.initialize_app(cred, {'projectId': 'danmoa-p5plsh'})
+db = firestore.client()
+
+# Initialize the transformer model and tokenizer
+model_path = "kazma1/simcse-robertsmall-matching"
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+model = AutoModel.from_pretrained(model_path)
+
+# Function to calculate similarity between two texts
+def calculate_similarity(model, tokenizer, text1, text2):
+    inputs = tokenizer([text1, text2], return_tensors="pt", padding=True, truncation=True)
+    with torch.no_grad():
+        outputs = model(**inputs)
+        similarity_scores = torch.nn.functional.cosine_similarity(outputs.last_hidden_state[0], outputs.last_hidden_state[1], dim=1)
+        similarity_score = similarity_scores.mean().item()
+    return similarity_score
+
+def update_signal_and_score():
+    while True:
+        docs = db.collection('ai').where('signal', '==', 0).get()
+
+        for doc in docs:
+            doc_id = doc.id
+            print(f"Updating document ID: {doc_id}")
+            doc_ref = db.collection('ai').document(doc_id)
+
+            intro_text = doc.get('usr_input_txt')
+
+            # Query relevant job postings
+            companies = db.collection('company').stream()
+
+            scores = []
+
+            for company in companies:
+                name = company.get('name', '')
+                main_duty = company.get('main_duty', '')
+                qualification = company.get('qualification', '')
+                preferential = company.get('preferential', '')
+
+                main_duty_score = calculate_similarity(model, tokenizer, intro_text, main_duty)
+                qualification_score = calculate_similarity(model, tokenizer, intro_text, qualification)
+                preferential_score = calculate_similarity(model, tokenizer, intro_text, preferential)
+                total_score = (main_duty_score + qualification_score + preferential_score) / 3
+
+                combined_output = f"Main Duty: {main_duty}, Qualification: {qualification}, Preferential: {preferential}"
+
+                scores.append({
+                    'score': total_score,
+                    'output': combined_output
+                })
+
+            # Sort scores in descending order and take top 5
+            scores = sorted(scores, key=lambda x: x['score'], reverse=True)[:5]
+
+            # Update the document with the top 5 scores and outputs
+            updates = {}
+            for i, score_info in enumerate(scores):
+                updates[f'ai_score{i+1}'] = score_info['score']
+                updates['ai_output'] = f"{updates.get('ai_output', '')}\n\n{score_info['output']}" if updates.get('ai_output') else score_info['output']
+
+            updates['signal'] = 2
+            doc_ref.update(updates)
+
+        if not docs:
+            print("No documents to update. Waiting...")
+            time.sleep(10)
+
+# Function call
+update_signal_and_score()
