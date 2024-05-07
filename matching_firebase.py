@@ -404,7 +404,8 @@ def update_signal_and_score():
 
                 scores.append({
                     'score': total_score,
-                    'output': combined_output
+                    'output': combined_output,
+                    'name': name
                 })
 
             updates = {}
@@ -417,8 +418,10 @@ def update_signal_and_score():
             # Combine the outputs of the top 5 scores
             combined_output = "\n\n".join(score['output'] for score in scores)
 
+            cmp_name =  "\n\n".join(score['name'] for score in scores)
+
             # Summarize the combined output using OpenAI
-            prompt = f"Combine the following job requirements into a brief summary:\n\n{combined_output}"
+            prompt = combined_output +"\n위에 있는 문장을 참고해서 공부하도록 조언해주는거처럼 한국어로 요약해서 말해줘"
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[{"role": "user", "content": prompt}]
@@ -428,7 +431,7 @@ def update_signal_and_score():
             # Update the document with the average score and the summarized output
             updates = {
                 'ai_score': average_score,
-                'ai_output': ai_output,
+                'ai_output': cmp_name+"\n"+ai_output,
                 'signal': 2
             }
 
