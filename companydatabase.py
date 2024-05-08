@@ -70,7 +70,7 @@ all_data = []
 id_set = set()
 
 timestamp = int(datetime.datetime.now().timestamp())
-tag_type_ids = 10101
+tag_type_ids = 959
 years = -1
 limit = 100
 offset = 0
