@@ -79,6 +79,9 @@ def update_signal_and_score():
                 company_counter += 1  # 카운터 증가
                 if company_counter % 100 == 0:
                     print(f"100개 회사 비교 완료, 현재까지 처리한 회사 수: {company_counter}")
+                if company_counter >= 300:  #채용공고수 검색수 조절
+                    print("500개완료")
+                    break
 
             updates = {}
             # Sort scores in descending order and take top 5
@@ -93,7 +96,8 @@ def update_signal_and_score():
             cmp_name =  "\n\n".join(score['name'] for score in scores)
 
             # GPT API로 combined output을 설명하는 것처럼 문장을 정제
-            prompt = combined_output +"\n위에 있는 문장을 참고해서 공부하도록 조언해주는거처럼 한국어로 요약해서 말해줘. 자격, 우대사항같은 말은 빼주고 문장 맨 앞에는 더 나아가를 붙여줘."
+            control = "\n위에 있는 전체 문장 중 \"" + intro_text + "\" 이 문장과 관련된 문장만을 사용해서 공부하도록 조언해주는거처럼 한국어로 요약해서 말해줘."
+            prompt = combined_output + control
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[{"role": "user", "content": prompt}]
@@ -103,7 +107,7 @@ def update_signal_and_score():
             # Update the document with the average score and the summarized output
             updates = {
                 'ai_score': average_score,
-                'ai_output': cmp_name+"\n"+ai_output,
+                'ai_output': ai_output,
                 'signal': 2
             }
 
