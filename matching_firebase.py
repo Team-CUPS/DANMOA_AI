@@ -42,11 +42,19 @@ def update_signal_and_score():
             print(f"Updating document ID: {doc_id}")
             doc_ref = db.collection('qa').document(doc_id)
 
-            intro_text = doc.get('usr_input_txt')
+            # 입력 형태를 GPT API를 활용해서 모델에 맞게 정제
+            # intro_text = doc.get('usr_input_txt')
+            
+            prompt = doc.get('usr_input_txt') + "\n위에 있는 문장에 대한 답을 한국어로 한문장으로 알려줘."
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role": "user", "content": prompt}]
+            )
+            intro_text = response["choices"][0]["message"]["content"]
 
             # Query relevant job postings
             companies = db.collection('jobs').stream()
-
+            
             scores = []
 
             for jobs in companies:
@@ -79,13 +87,13 @@ def update_signal_and_score():
             # Average score
             average_score = sum(score['score'] for score in scores) / len(scores)
 
-            # Combine the outputs of the top 5 scores
+            # Top5를 추출해서 합산
             combined_output = "\n\n".join(score['output'] for score in scores)
 
             cmp_name =  "\n\n".join(score['name'] for score in scores)
 
-            # Summarize the combined output using OpenAI
-            prompt = combined_output +"\n위에 있는 문장을 참고해서 공부하도록 조언해주는거처럼 한국어로 요약해서 말해줘"
+            # GPT API로 combined output을 설명하는 것처럼 문장을 정제
+            prompt = combined_output +"\n위에 있는 문장을 참고해서 공부하도록 조언해주는거처럼 한국어로 요약해서 말해줘. 자격, 우대사항같은 말은 빼주고 문장 맨 앞에는 더 나아가를 붙여줘."
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[{"role": "user", "content": prompt}]
