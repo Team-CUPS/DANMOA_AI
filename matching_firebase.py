@@ -96,7 +96,7 @@ def update_signal_and_score():
             cmp_name =  "\n\n".join(score['name'] for score in scores)
 
             # GPT API로 combined output을 설명하는 것처럼 문장을 정제
-            control = "\n위에 있는 전체 문장 중 \"" + intro_text + "\" 이 문장과 관련된 문장만을 사용해서 공부하도록 조언해주는거처럼 한국어로 요약해서 말해줘."
+            control = "\n위에 있는 전체 문장 중 \"" + intro_text + "\" 이 문장과 관련된 문장을"+ combined_output +"중에 사용해서 공부하도록 조언해주는거처럼 5줄정도로 기술이름이나 필요스택등을 포함해서 한국어로 요약해서 말해줘."
             prompt = combined_output + control
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",

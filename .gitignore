@@ -141,3 +141,4 @@ push_to_hub.ipynb
 *.arrow
 simcse-robert/kazma1/simcse-robertalarge-matching/pytorch_model.bin
 danmoa-p5plsh-firebase-adminsdk-kyjdv-7d89ae5674.json
+test.py
