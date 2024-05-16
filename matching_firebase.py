@@ -5,12 +5,14 @@ from transformers import AutoModel, AutoTokenizer
 import torch
 import openai
 import logging
+import torch
+
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Initialize Firebase and Firestore
-cred = credentials.Certificate('danmoa-p5plsh-firebase-adminsdk-kyjdv-7d89ae5674.json')
+cred = credentials.Certificate('danmoa-p5plsh-firebase-adminsdk-kyjdv-f84bfa1051.json')#danmoa-p5plsh-firebase-adminsdk-kyjdv-7d89ae5674.json
 firebase_admin.initialize_app(cred, {'projectId': 'danmoa-p5plsh'})
 db = firestore.client()
 
@@ -23,9 +25,14 @@ model_path = "kazma1/simcse-robertsmall-matching"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModel.from_pretrained(model_path)
 
+# Move the model to GPU if available
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
+
 # Function to calculate similarity between two texts
 def calculate_similarity(model, tokenizer, text1, text2):
     inputs = tokenizer([text1, text2], return_tensors="pt", padding=True, truncation=True)
+    inputs = {k: v.to(device) for k, v in inputs.items()}  # Move inputs to GPU
     with torch.no_grad():
         outputs = model(**inputs)
         similarity_scores = torch.nn.functional.cosine_similarity(outputs.last_hidden_state[0], outputs.last_hidden_state[1], dim=1)
@@ -79,8 +86,8 @@ def update_signal_and_score():
                 company_counter += 1  # 카운터 증가
                 if company_counter % 100 == 0:
                     print(f"100개 회사 비교 완료, 현재까지 처리한 회사 수: {company_counter}")
-                if company_counter >= 300:  #채용공고수 검색수 조절
-                    print("500개완료")
+                if company_counter >= 1500:  #채용공고수 검색수 조절
+                    print("1500개완료")
                     break
 
             updates = {}
