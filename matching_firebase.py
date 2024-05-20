@@ -111,13 +111,13 @@ def update_signal_and_score():
                 cmp_name = "\n\n".join(score['name'] for score in scores)
 
                 # GPT API로 combined output을 설명하는 것처럼 문장을 정제
-                if average_score <= 0.4:
-                    ai_output = "좀 더 정확히 써주세요."
+                if average_score <= 0.35:
+                    ai_output = "좀 더 정확히 써주시면 자세히 알려드리겠습니다."
                 else:
-                    control = "\n위에 있는 전체 문장 중 \"" + intro_text + "\" 이 문장과 관련된 문장을" + combined_output + "중에 사용해서 공부하도록 조언해주는거처럼 3줄정도로 기술이름이나 필요스택등을 포함해서 한국어로 요약해서 말해줘 단/" + intro_text + "랑관계있는 문장을 선별해서 3줄로요약해줘"
+                    control = "\n위에 있는 전체 문장 중 \n" + intro_text + "\n 이 문장과 관련된 내용으로 기술이름이나 필요스택등을 포함해서 한국어로 3~5줄정도 요약한걸 남에게 조언하는 것처럼 말해줘."
                     prompt = combined_output + control
                     response = openai.ChatCompletion.create(
-                        model="gpt-3.5-turbo",
+                        model="gpt-4-turbo",
                         messages=[{"role": "user", "content": prompt}]
                     )
                     ai_output = response["choices"][0]["message"]["content"]
