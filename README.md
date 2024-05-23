@@ -93,7 +93,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 This program is designed to handle multiple tasks concurrently using a ThreadPoolExecutor with 10 threads. This setup allows efficient management of various operations such as fetching data, processing user inputs, and interacting with the model. Additionally, the program utilizes the ChatGPT API to transform user inputs into a question and answer (QA) format, enhancing the interaction by providing contextually relevant and coherent responses.
 
 ## interacting with the Program: Input and Output Examples
-- input ex) "백엔드 개발자 스터디로 모였는데 무슨 공부를 하는게 좋을까?"
-- ouput ex) "백엔드 개발자 스터디를 시작하셨다면, 다음과 같은 기술 스택을 공부하는 것이 좋습니다. Spring과 Spring Boot를 활용한 웹서비스 설계 및 개발, JPA와 Hibernate를 사용한 ORM 및 도메인 모델링, Restful API 설계 및 개발, 그리고 AWS 환경에서의 개발 및 운영 경험을 쌓는 것이 중요합니다. 또한, 기본적인 Linux/Unix 명령어 사용 능력과 함께 MySQL 등의 RDBMS 경험, 빌드/테스트/배포 자동화, 그리고 통계 배치 개발 경험을 쌓는 것도 유익할 것입니다."
+- input: "백엔드 개발자 스터디로 모였는데 무슨 공부를 하는게 좋을까?"
+- ouput: "백엔드 개발자 스터디를 시작하셨다면, 다음과 같은 기술 스택을 공부하는 것이 좋습니다. Spring과 Spring Boot를 활용한 웹서비스 설계 및 개발, JPA와 Hibernate를 사용한 ORM 및 도메인 모델링, Restful API 설계 및 개발, 그리고 AWS 환경에서의 개발 및 운영 경험을 쌓는 것이 중요합니다. 또한, 기본적인 Linux/Unix 명령어 사용 능력과 함께 MySQL 등의 RDBMS 경험, 빌드/테스트/배포 자동화, 그리고 통계 배치 개발 경험을 쌓는 것도 유익할 것입니다."
 
 
