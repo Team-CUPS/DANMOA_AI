@@ -52,8 +52,10 @@ nli dataset: eval.csv
 sts_dataset: sts_train.csv
 
 ## Evaluation
-Model	Cosine Pearson	Cosine Spearman	Euclidean Pearson	Euclidean Spearman	Manhattan Pearson	Manhattan Spearman	Dot Pearson	Dot Spearman
-SimCSE-RoBERTasmall-matching	70.23	67.34	66.32	66.28	63.44	61.52	59.08	60.08
+| Model                         | Cosine Pearson | Cosine Spearman | Euclidean Pearson | Euclidean Spearman | Manhattan Pearson | Manhattan Spearman | Dot Pearson | Dot Spearman |
+|-------------------------------|----------------|-----------------|-------------------|--------------------|-------------------|--------------------|-------------|--------------|
+| SimCSE-RoBERTasmall-matching  | 70.23          | 67.34           | 66.32             | 66.28              | 63.44             | 61.52              | 59.08       | 60.08        |
+
 
 #### Results
 
