@@ -1,5 +1,20 @@
-
 # DANMOA AI Recommend System
+
+## Table of Contents
+- [Overview](#overview)
+- [Model Description](#model-description)
+- [Developed by](#developed-by)
+- [Model Details](#model-details)
+- [Uses](#uses)
+- [Risks, Limitations and Biases](#risks-limitations-and-biases)
+- [Training](#training)
+- [Evaluation](#evaluation)
+- [How to Get Started With the Model](#how-to-get-started-with-the-model)
+- [How to Get Started With the Program](#how-to-get-started-with-the-program)
+- [Program Structure](#program-structure)
+- [Interacting with the Program: Input and Output Examples](#interacting-with-the-program-input-and-output-examples)
+
+## Overview
 - 사용자의 스터디 방향을 잡아주고 추천해주는 AI
 - 자기소개서, 채용공고 데이터 활용
 - RoBERTa 기반 모델 설계
