@@ -51,9 +51,9 @@ This LLM utilizes Masked Language Modeling (MLM) and employs the SimCSE techniqu
 
 
 #### Training Data
--unsupervised dataset: wanted.csv,linkareer.csv (자소서+채용공고)
--nli dataset: eval.csv
--sts_dataset: sts_train.csv
+- unsupervised dataset: wanted.csv,linkareer.csv (자소서+채용공고)
+- nli dataset: eval.csv
+- sts_dataset: sts_train.csv
 
 ## Evaluation
 | Model                         | Cosine Pearson | Cosine Spearman | Euclidean Pearson | Euclidean Spearman | Manhattan Pearson | Manhattan Spearman | Dot Pearson | Dot Spearman |
