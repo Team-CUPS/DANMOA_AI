@@ -24,11 +24,16 @@
 This LLM utilizes Masked Language Modeling (MLM) and employs the SimCSE technique with NLI and STS datasets for specialized downstream tasks. The model is designed to accurately match resumes with corresponding companies by analyzing textual similarities. Post-matching, it leverages a GPT-based framework to provide custom QA sessions for each company, enhancing the relevance and precision of interactions.
 
 
-- **Developed by:** umhyeonho(umleeho1),abee3417
-- **Model Type:** Fill-Mask + LLM + gpt 4.0
-- **Language(s):** Korea
-- **License:** [More Information needed]
-- **Parent Model:** See the [klue/BERT base uncased model](https://huggingface.co/klue/bert-base)
+## Developed by
+- umhyeonho(umleeho1)
+- abee3417
+
+## Model Details
+**Model Type:** Fill-Mask + LLM + GPT 4.0  
+**Language(s):** Korean  
+**License:** [More Information needed]  
+**Parent Model:** See the [klue/BERT base uncased model](https://huggingface.co/klue/bert-base)
+
 
 ## Uses
 
@@ -47,9 +52,9 @@ This LLM utilizes Masked Language Modeling (MLM) and employs the SimCSE techniqu
 
 
 #### Training Data
-unsupervised dataset: wanted.csv,linkareer.csv (자소서+채용공고)
-nli dataset: eval.csv
-sts_dataset: sts_train.csv
+-unsupervised dataset: wanted.csv,linkareer.csv (자소서+채용공고)
+-nli dataset: eval.csv
+-sts_dataset: sts_train.csv
 
 ## Evaluation
 | Model                         | Cosine Pearson | Cosine Spearman | Euclidean Pearson | Euclidean Spearman | Manhattan Pearson | Manhattan Spearman | Dot Pearson | Dot Spearman |
