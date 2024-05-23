@@ -6,7 +6,6 @@
 - [Developed by](#developed-by)
 - [Model Details](#model-details)
 - [Uses](#uses)
-- [Risks, Limitations and Biases](#risks-limitations-and-biases)
 - [Training](#training)
 - [Evaluation](#evaluation)
 - [How to Get Started With the Model](#how-to-get-started-with-the-model)
