@@ -11,33 +11,7 @@ from SimCSE.arguments import DataTrainingArguments
 from data.info import UnsupervisedSimCseFeatures, STSDatasetFeatures
 from datasets import load_from_disk
 
-# 비감독전처리함수
-def unsupervised_prepare_features(examples, tokenizer, data_args):
-    total = len(examples[UnsupervisedSimCseFeatures.SENTENCE.value])
-    # Avoid "None" fields
-    for idx in range(total):
-        if examples[UnsupervisedSimCseFeatures.SENTENCE.value][idx] is None:
-            examples[UnsupervisedSimCseFeatures.SENTENCE.value][idx] = " "
 
-    sentences = (
-        examples[UnsupervisedSimCseFeatures.SENTENCE.value]
-        + examples[UnsupervisedSimCseFeatures.SENTENCE.value]
-    )
-
-    sent_features = tokenizer(
-        sentences,
-        max_length=data_args.max_seq_length,
-        truncation=True,
-        padding="max_length",
-    )
-
-    features = {}
-
-    for key in sent_features:
-        features[key] = [
-            [sent_features[key][i], sent_features[key][i + total]] for i in range(total)
-        ]
-    return features
 
 # 감독학습 전처리
 def sts_prepare_features(examples, tokenizer, data_args):
