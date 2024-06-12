@@ -76,7 +76,7 @@ def update_signal_and_score():
             # 입력 형태를 GPT API를 활용해서 모델에 맞게 정제
             prompt = doc.get('usr_input_txt') + "\n위에 있는 문장에 대한 답을 한국어로 한문장으로 알려줘."
             response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4o",
                 messages=[{"role": "user", "content": prompt}]
             )
             intro_text = response["choices"][0]["message"]["content"]
@@ -95,11 +95,11 @@ def update_signal_and_score():
                     company_counter += 1  # 카운터 증가
                     if company_counter % 100 == 0:
                         print(f"100개 회사 비교 완료, 현재까지 처리한 회사 수: {company_counter}")
-                    if company_counter >= 1500:  # 채용공고수 검색수 조절
-                        print("1500개완료")
+                    if company_counter >= 1000:  # 채용공고수 검색수 조절
+                        print("1000개완료")
                         break
 
-            if company_counter >= 1500:
+            if company_counter >= 1000:
                 # Sort scores in descending order and take top 5
                 scores = sorted(scores, key=lambda x: x['score'], reverse=True)[:5]
 
@@ -111,13 +111,13 @@ def update_signal_and_score():
                 cmp_name = "\n\n".join(score['name'] for score in scores)
 
                 # GPT API로 combined output을 설명하는 것처럼 문장을 정제
-                if average_score <= 0.35:
+                if average_score <= 0.36:
                     ai_output = "좀 더 정확히 써주시면 자세히 알려드리겠습니다."
                 else:
                     control = "\n위에 있는 전체 문장 중 \n" + intro_text + "\n 이 문장과 관련된 내용으로 기술이름이나 필요스택등을 포함해서 한국어로 3~5줄정도 요약한걸 남에게 조언하는 것처럼 말해줘."
                     prompt = combined_output + control
                     response = openai.ChatCompletion.create(
-                        model="gpt-4-turbo",
+                        model="gpt-4o",
                         messages=[{"role": "user", "content": prompt}]
                     )
                     ai_output = response["choices"][0]["message"]["content"]
